@@ -1,0 +1,49 @@
+package rules
+
+import com.wipro.model.AnalysisInfo
+import com.wipro.model.Action
+
+rule "Cross sell item from wishlist"
+	when
+		analysisObject: AnalysisInfo((recommendation_engine_output == "cross sell") && ((avg_monthly_basket_value>200)&&(avg_monthly_basket_value<400)) && (recommendation_engine_confidence_score>75) && (customer_lifetime_value=="high") && (loyalty_rank=="silver") && (frequency_of_engagement>6 && frequency_of_engagement<12) && (propensity_to_return=="low") && (price_sensitivity=="medium") &&(propensity_to_fraud_customer =="very low")&&(propensity_to_fraud_subcategory=="medium") && (propensity_to_fraud_geographic=="medium") && (return_handling_cost =="medium") && (product_return_frequency<2) &&(profit_per_unit>20) && (product_age_at_store<30)&&(reason_summary=="quality") && (market_basket_analysis_engine_confidence_score>0.0075) &&(lift >30 && lift<60))
+	then
+		System.out.println("cross sell item from wishlist");
+		Action $obj = new Action();
+		$obj.setActionId("AC102");
+		$obj.setProductId("2112123");
+		$obj.setOfferID("null");
+		analysisObject.setOutput($obj);
+	end
+rule "Suggest like to like replacement"
+	when
+		analysisObject: AnalysisInfo((recommendation_engine_output == "replace like item") && ((avg_monthly_basket_value>200)&&(avg_monthly_basket_value<400)) && (recommendation_engine_confidence_score>75) && (customer_lifetime_value=="high") && (loyalty_rank=="silver") && (frequency_of_engagement>6 && frequency_of_engagement<12) && (propensity_to_return=="low") && (price_sensitivity=="medium") &&(propensity_to_fraud_customer =="very low")&&(propensity_to_fraud_subcategory=="high") && (propensity_to_fraud_geographic=="high") && (return_handling_cost =="low") && ((product_return_frequency>2 && product_return_frequency<5)) &&(profit_per_unit<10) && (product_age_at_store>30 && product_age_at_store<60)&&(reason_summary=="damage") && (market_basket_analysis_engine_confidence_score>0.0075) &&(lift <10))
+	then
+		System.out.println("Suggest like to like replacement");
+		Action $obj = new Action();
+		$obj.setActionId("AC101");
+		$obj.setProductId("4443121");
+		$obj.setOfferID("null");
+		analysisObject.setOutput($obj);
+	end
+rule "Suggest refund to original tender"
+	when
+		analysisObject: AnalysisInfo((recommendation_engine_output == "alternate size") && ((avg_monthly_basket_value>100)&&(avg_monthly_basket_value<200)) && (recommendation_engine_confidence_score>10 && recommendation_engine_confidence_score<25) && (customer_lifetime_value=="very low") && (loyalty_rank=="blue") && (frequency_of_engagement>1 && frequency_of_engagement<3) && (propensity_to_return=="high") && (price_sensitivity=="high") &&(propensity_to_fraud_customer =="medium")&&(propensity_to_fraud_subcategory=="medium") && (propensity_to_fraud_geographic=="medium") && (return_handling_cost =="medium") && ((product_return_frequency>2)&& (product_return_frequency>5)) &&(profit_per_unit>20) && (product_age_at_store>60)&&(reason_summary=="fit issue") && (market_basket_analysis_engine_confidence_score>0.005 && market_basket_analysis_engine_confidence_score<0.0075 ) &&(lift<10))
+	then
+		System.out.println("Suggest refund to original tender");
+		Action $obj = new Action();
+		$obj.setActionId("AC103");
+		$obj.setProductId("null");
+		$obj.setOfferID("null");
+		analysisObject.setOutput($obj);
+	end
+rule "Suggest further discount X% to retain"
+	when
+		analysisObject: AnalysisInfo((recommendation_engine_output == "replace like item") && ((avg_monthly_basket_value>100)&&(avg_monthly_basket_value<200)) && (recommendation_engine_confidence_score>25 && recommendation_engine_confidence_score<50) && (customer_lifetime_value=="very low") && (loyalty_rank=="blue") && (frequency_of_engagement>1 && frequency_of_engagement<3) && (propensity_to_return=="high") && (price_sensitivity=="high") &&(propensity_to_fraud_customer =="high")&&(propensity_to_fraud_subcategory=="high") && (propensity_to_fraud_geographic=="high") && (return_handling_cost =="low") && ((product_return_frequency>2)&& (product_return_frequency>5)) &&(profit_per_unit<10) && (product_age_at_store<30)&&(reason_summary=="damage") && (market_basket_analysis_engine_confidence_score>0.005 && market_basket_analysis_engine_confidence_score<0.0075 ) &&(lift<10))
+	then
+		System.out.println("Suggest refund to original tender");
+		Action $obj = new Action();
+		$obj.setActionId("AC108");
+		$obj.setProductId("null");
+		$obj.setOfferID("null");
+		analysisObject.setOutput($obj);
+	end
